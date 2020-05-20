@@ -3,6 +3,7 @@
 
 # VS Code Junk
 .vsls.json
+.vscode
 
 # Logs
 /logs
