@@ -2,6 +2,17 @@ export interface Config {
   /** The bot token received from the Telegram Botfather */
   botToken: string
 
+  /** The bot token received from the Telegram Botfather */
+  proxy: {
+    /**
+     * Weather or not to escape plain html payload
+     */
+    host: string,
+    port: number,
+    login: string,
+    psswd: string,
+  }
+
   /** Enable or disable this channel for this bot */
   enabled: boolean
 

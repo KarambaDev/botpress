@@ -1,4 +1,4 @@
-import { Button, FileInput, Intent, Position, Tooltip } from '@blueprintjs/core'
+import { Button, FileInput, Intent, Position, Tooltip, InputGroup } from '@blueprintjs/core'
 import axios from 'axios'
 import { lang } from 'botpress/shared'
 import React, { FC, Fragment, useReducer } from 'react'
@@ -28,6 +28,15 @@ const UploadWidget: FC<any> = props => {
         error,
         uploading: false
       }
+    } else if (action.type === 'manualUrlSet') {
+      const { url } = action.data
+
+      props.onChange(url)
+      return {
+        ...state,
+        error: null,
+        uploading: false
+      }
     } else if (action.type === 'uploadSuccess') {
       const { url } = action.data
 
@@ -53,6 +62,10 @@ const UploadWidget: FC<any> = props => {
     dispatch({ type: 'deleteFile' })
   }
 
+  const manualUrlSet = inputValue => {
+    dispatch({ type: 'manualUrlSet', data: { url: inputValue.target.value } })
+  }
+
   const startUpload = async event => {
     const data = new FormData()
     data.append('file', event.target.files[0])
@@ -76,7 +89,7 @@ const UploadWidget: FC<any> = props => {
   }
 
   const { value } = props
-
+  console.log('Upload props: ', props)
   return (
     <AccessControl
       operation="write"
@@ -84,6 +97,12 @@ const UploadWidget: FC<any> = props => {
       fallback={<em>{lang.tr('module.builtin.types.image.permissionDenied')}</em>}
     >
       <div className={style.fieldWrapper}>
+        <InputGroup
+          id="cdn-node-image"
+          placeholder="CDN Image address"
+          onChange={manualUrlSet}
+          value={value}
+        />
         {value && (
           <div style={{ backgroundImage: `url('${value}')` }} className={style.imgWrapper}>
             <div className={style.imgWrapperActions}>

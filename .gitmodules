@@ -16,6 +16,6 @@
 [submodule "modules/channel-odnoklassniki"]
 	path = modules/channel-odnoklassniki
 	url = https://github.com/KarambaDev/botpress-channel-odnoklassniki
-[submodule "modules/channel-telegram2"]
-	path = modules/channel-telegram2
+[submodule "modules/channel-telegram"]
+	path = modules/channel-telegram
 	url = https://github.com/KarambaDev/botpress-channel-telegram

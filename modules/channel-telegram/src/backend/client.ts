@@ -13,13 +13,24 @@ export const sendEvent = async (bp: typeof sdk, botId: string, ctx: ContextMessa
   const threadId = _.get(ctx, 'chat.id') || _.get(ctx, 'message.chat.id')
   const target = _.get(ctx, 'from.id') || _.get(ctx, 'message.from.id')
 
+  let payload
+  let preview
+  // console.log('botId: ', botId, '\nctx: ', JSON.stringify(ctx))
+  if (ctx.updateType === 'message') {
+    payload = ctx.message
+    preview = ctx.message.text
+  } else if (ctx.updateType === 'callback_query') {
+    payload = ctx.callbackQuery
+    preview = ctx.callbackQuery.data
+  }
+
   await bp.events.sendEvent(
     bp.IO.Event({
       botId,
       channel: 'telegram',
       direction: 'incoming',
-      payload: ctx.message,
-      preview: ctx.message.text,
+      payload,
+      preview,
       threadId: threadId && threadId.toString(),
       target: target && target.toString(),
       ...args
@@ -68,7 +79,7 @@ export async function setupMiddleware(bp: typeof sdk, clients: Clients) {
     if (!_.includes(outgoingTypes, messageType)) {
       return next(new Error('Unsupported event type: ' + event.type))
     }
-
+    console.log('ToSend Event: ', JSON.stringify(event))
     if (messageType === 'typing') {
       await sendTyping(event, client, chatId)
     } else if (messageType === 'text') {
@@ -97,7 +108,8 @@ async function sendCarousel(event: sdk.IO.Event, client: Telegraf<ContextMessage
     const keyboard = keyboardButtons<CallbackButton>(buttons)
     await client.telegram.sendMessage(
       chatId,
-      `*${title}*\n${subtitle}`,
+      // `*${title}*\n${subtitle}`,
+      title + (title && subtitle ? '\n' + subtitle : ''),
       Extra.markdown(true).markup(Markup.inlineKeyboard(keyboard))
     )
   }

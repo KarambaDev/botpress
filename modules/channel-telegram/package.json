@@ -22,7 +22,7 @@
     "bluebird": "^3.5.3",
     "bluebird-global": "^1.0.1",
     "lodash": "^4.17.11",
-    "telegraf": "^3.27.1"
+    "telegraf": "3.27.1"
   },
   "resolutions": {
     "fstream": ">=1.0.12",

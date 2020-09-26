@@ -1,7 +1,7 @@
 import 'bluebird-global'
 import * as sdk from 'botpress/sdk'
 import Telegraf from 'telegraf'
-
+import https from 'https'
 import { Config } from '../config'
 
 import { setupBot, setupMiddleware } from './client'
@@ -43,6 +43,39 @@ const onBotMount = async (bp: typeof sdk, botId: string) => {
   const config = (await bp.config.getModuleConfigForBot('channel-telegram', botId, true)) as Config
 
   if (config.enabled) {
+    // const agent = new https.Agent({
+    //   port: 4443
+    // });
+    // const bot = new Telegraf(config.botToken, {
+    //   telegram: {           // Telegram options
+    //     agent: agent,        // https.Agent instance, allows custom proxy, certificate, keep alive, etc.
+    //     // webhookReply: true  // Reply via webhook
+    //   },
+    //   // username: ''          // Bot username (optional)
+    //   // channelMode: false    // Handle `channel_post` updates as messages (optional)
+    // })
+    // let bot
+    // if (config.proxy) {
+    //   const options = {
+    //     socksHost: config.proxy.host,
+    //     socksPort: config.proxy.port,
+    //     socksUsername: config.proxy.login,
+    //     socksPassword: config.proxy.psswd,
+    //     // path: null
+    //   }
+    //   const socksAgent = new SocksProxyAgent({
+    //     host: config.proxy.host,
+    //     port: config.proxy.port,
+    //     userId: config.proxy.login,
+    //     password: config.proxy.psswd,
+    //   });
+    //   // const socksAgent = new SocksAgent(options);
+    //   bot = new Telegraf(config.botToken, {
+    //     telegram: { agent: socksAgent }
+    //   })
+    // } else {
+    //   bot = new Telegraf(config.botToken)
+    // }
     const bot = new Telegraf(config.botToken)
 
     if (useWebhooks) {

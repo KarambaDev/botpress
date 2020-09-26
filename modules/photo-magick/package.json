@@ -1,0 +1,17 @@
+{
+  "name": "photo-magick",
+  "version": "0.1",
+  "description": "Some description on what this module is about",
+  "private": true,
+  "main": "dist/backend/index.js",
+  "author": "Botpress, Inc.",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "build": "node ../../build/module-builder/bin/entry build",
+    "watch": "node ../../build/module-builder/bin/entry watch",
+    "package": "node ../../build/module-builder/bin/entry package"
+  },
+  "dependencies": {
+    "gm": "^1.23.1"
+  }
+}
