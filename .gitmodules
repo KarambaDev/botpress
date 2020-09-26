@@ -13,3 +13,9 @@
 [submodule "src/bp/ml/sentencepiece"]
 	path = src/bp/ml/sentencepiece
 	url = git@github.com:botpress/node-sentencepiece.git
+[submodule "modules/channel-odnoklassniki"]
+	path = modules/channel-odnoklassniki
+	url = https://github.com/KarambaDev/botpress-channel-odnoklassniki
+[submodule "modules/channel-telegram2"]
+	path = modules/channel-telegram2
+	url = https://github.com/KarambaDev/botpress-channel-telegram
